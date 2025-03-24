@@ -1,3 +1,4 @@
+import React from 'react';
 import { ScrollControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { EffectComposer, Noise } from "@react-three/postprocessing";
@@ -5,7 +6,7 @@ import { useMemo } from "react";
 import { Experience } from "./components/Experience";
 import { Overlay } from "./components/Overlay";
 import { usePlay } from "./contexts/Play";
-import React from 'react';
+
 
 function App() {
   const { play, end } = usePlay();

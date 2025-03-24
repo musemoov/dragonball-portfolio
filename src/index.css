@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+
 
 #root {
   width: 100vw;
@@ -59,17 +63,25 @@ body {
 }
 
 .logo {
-  font-family: "DM Serif Display", serif;
-  color: white;
+  font-family: "Roboto", sans-serif;
+  /* color: white; */
   font-size: 8rem;
   letter-spacing: 0.5rem;
   padding: 0;
   margin: 0;
   transform: translateY(-50%);
   position: absolute;
-  top: 50vh;
+  top: 47vh;
   animation: fadeUp 2.4s ease-in-out;
   transition: all 2s ease-in-out;
+
+  /* gradient 텍스트 효과 적용 */
+  background: linear-gradient(to top, #7b7b7b, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* optional: 글자에 약간의 그림자 추가해 글자가 띄워진 느낌 */
+  /* text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
 }
 
 .intro--disappear .logo {
@@ -78,7 +90,7 @@ body {
   transform-origin: center top;
 }
 
-.spinner {
+/* .spinner {
   position: absolute;
   right: 0px;
   top: 0px;
@@ -99,7 +111,7 @@ body {
 .intro--disappear .spinner {
   opacity: 1;
   animation: fadeOut 1s ease-in-out forwards;
-}
+} */
 
 .intro__scroll {
   opacity: 0;
@@ -122,15 +134,21 @@ body {
 .explore {
   padding: 1rem 2rem;
   border: none;
-  font-family: "DM Serif Display", serif;
+  
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
   font-size: 1.25rem;
   letter-spacing: 0.25rem;
-  color: #3535cc;
-  border-radius: 32px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  /* border: 1px solid rgba(255, 255, 255, 0.8); */
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  border-radius: 30px;
   cursor: pointer;
   display: inline-block;
   margin-top: 320px;
-  display: inline-block;
   position: relative;
   z-index: 1;
   overflow: hidden;
@@ -140,18 +158,19 @@ body {
 }
 
 .explore:hover {
-  color: white;
+  color: #000000;
+  border: 2px solid #000000;
 }
 
 .explore:hover:before {
-  width: 200%;
+  width: 300%;
   height: 300%;
   border-radius: 100%;
 }
 
 .explore:before {
   content: "";
-  background: #3535cc;
+  background: linear-gradient(45deg,#0f2f40, #7ad5ff );;
   position: absolute;
   width: 0%;
   bottom: 0;
@@ -161,6 +180,52 @@ body {
   z-index: -1;
   transform: translateX(-50%) translateY(50%);
 }
+
+.explore::after {
+  content: "";
+  position: absolute;
+  /* 버튼보다 조금 크게 잡아, 테두리 영역을 커버 */
+  inset: 0;
+  /* 테두리 두께 조절: 2px이면 2px 두께의 빛나는 라인 */
+  padding: 3px;
+  border-radius: inherit;
+  box-sizing: border-box;
+  
+   /* 더 밝은 Glow를 위해 강한 색상 그라디언트 */
+   background: linear-gradient(45deg, #7ad5ff, #0f2f40, #7ad5ff, #0f2f40);
+  background-size: 300% 300%;
+  animation: borderGlow 4s linear infinite; /*  끊김 없이 */
+   
+   /* Glow를 더 환하고 크게 만들기 위해 blur와 brightness 조정 */
+   filter: blur(10px) brightness(1.4);
+   opacity: 0.9;  /* 투명도를 줄여 좀 더 밝게 보이게 */
+   
+   z-index: -2;   /* :before보다 뒤 */
+   
+   /*
+     마스크 기법으로 '버튼 안'은 가리고,
+     테두리 영역(2px 패딩)만 보이도록 처리
+   */
+   -webkit-mask: 
+     linear-gradient(#fff 0 0) content-box, 
+     linear-gradient(#fff 0 0) border-box;
+   -webkit-mask-composite: xor;
+   mask: 
+     linear-gradient(#fff 0 0) content-box, 
+     linear-gradient(#fff 0 0) border-box;
+   mask-composite: exclude;
+ }
+ 
+ /* 그라디언트 움직임 애니메이션 */
+ @keyframes borderGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;  /*  두 배 이동으로 끊김 없이 */
+  }
+}
+
 
 .intro--disappear .explore {
   animation: fadeOut 1s ease-in-out forwards;
@@ -177,10 +242,13 @@ body {
   justify-content: center;
   opacity: 0;
   transition: opacity 4s ease-in-out;
+  pointer-events: none;  /* 기본 비활성 */
+  z-index: 10;           /* 3D 위로 */
 }
 
 .outro--appear {
   opacity: 1;
+  pointer-events: auto;  /* 나타날 때 클릭 활성화 */
 }
 
 .outro__text {
@@ -188,6 +256,11 @@ body {
   font-size: 1.5rem;
   color: white;
 }
+
+
+
+
+
 
 /* RESPONSIVE */
 
@@ -203,15 +276,64 @@ body {
     transform-origin: center top;
   }
 
-  .spinner__image {
+  /* .spinner__image {
     width: 82px;
     height: 82px;
-  }
+  } */
 
   .outro__text {
     font-size: 1rem;
   }
 }
+
+.outro__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* 버튼과 텍스트 모두 가운데 */
+  gap: 20px;            /* 간격 조절 */
+}
+
+.outro__button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  color: white;
+  background: rgba(255, 255, 255, 0.276);
+  backdrop-filter: blur(8px);
+  border: 2px solid white;
+  border-radius: 30px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(50px);  /* 시작 위치를 더 아래로 */
+  transition: opacity 2s ease, transform 2s ease; /* 등장 시간 2초로 늘림 */
+  margin-top: 70px;  /* 아래 여백 추가 */
+  z-index: 1;
+}
+
+/* 나타날 때 */
+.outro--appear .outro__button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover 효과도 추가 */
+.outro__button:hover {
+  /* background: linear-gradient(45deg, #5d69be,#c89feb ); */
+  color: #000000;
+  transition: all 0.7s ease;
+  border: 2px solid rgb(0, 0, 0);
+  
+}
+
+
+.canvas-container {
+  transition: opacity 2s ease;
+}
+
+.hide-model {
+  opacity: 0;
+  pointer-events: none;  /* 사라지고 클릭도 방지 */
+}
+
 
 /* ANIMATIONS */
 

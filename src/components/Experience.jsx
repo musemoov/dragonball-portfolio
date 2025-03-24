@@ -6,12 +6,12 @@ import * as THREE from "three";
 import { Euler, Group, Vector3 } from "three";
 import { usePlay } from "../contexts/Play";
 import { fadeOnBeforeCompile } from "../utils/fadeMaterial";
-import { Airplane } from "./Airplane";
+import { Son5Gong } from "./Son5Gong";
 import { Background } from "./Background";
 import { Cloud } from "./Cloud";
 import { Speed } from "./Speed";
 import { TextSection } from "./TextSection";
-import React from 'react';
+import React from "react";
 
 const LINE_NB_POINTS = 1000;
 const CURVE_DISTANCE = 250;
@@ -21,6 +21,10 @@ const AIRPLANE_MAX_ANGLE = 35;
 const FRICTION_DISTANCE = 42;
 
 export const Experience = () => {
+  const { play, setHasScroll, end, setEnd } = usePlay();
+
+  console.log("Experience render:", play);
+
   const curvePoints = useMemo(
     () => [
       new THREE.Vector3(0, 0, 0),
@@ -51,8 +55,8 @@ export const Experience = () => {
           curvePoints[1].y,
           curvePoints[1].z
         ),
-        subtitle: `Welcome to Wawatmos,
-Have a seat and enjoy the ride!`,
+        title: "My 1st project",
+        subtitle: `Click here to open my first project.`,
       },
       {
         cameraRailDist: 1.5,
@@ -61,9 +65,8 @@ Have a seat and enjoy the ride!`,
           curvePoints[2].y,
           curvePoints[2].z
         ),
-        title: "Services",
-        subtitle: `Do you want a drink?
-We have a wide range of beverages!`,
+        title: "My 2nd project",
+        subtitle: `Click here to open my second project.`,
       },
       {
         cameraRailDist: -1,
@@ -72,8 +75,8 @@ We have a wide range of beverages!`,
           curvePoints[3].y,
           curvePoints[3].z
         ),
-        title: "Fear of flying?",
-        subtitle: `Our flight attendants will help you have a great journey`,
+        title: "My 3rd project",
+        subtitle: `Click here to open my third project.`,
       },
       {
         cameraRailDist: 1.5,
@@ -82,8 +85,8 @@ We have a wide range of beverages!`,
           curvePoints[4].y,
           curvePoints[4].z - 12
         ),
-        title: "Movies",
-        subtitle: `We provide a large selection of medias, we highly recommend you Porco Rosso during the flight`,
+        title: "My 4th project",
+        subtitle: `Click here to open my fourth project.`,
       },
     ];
   }, []);
@@ -276,8 +279,6 @@ We have a wide range of beverages!`,
   const scroll = useScroll();
   const lastScroll = useRef(0);
 
-  const { play, setHasScroll, end, setEnd } = usePlay();
-
   useFrame((_state, delta) => {
     if (window.innerWidth > window.innerHeight) {
       // LANDSCAPE
@@ -429,8 +430,8 @@ We have a wide range of beverages!`,
 
   const tl = useRef();
   const backgroundColors = useRef({
-    colorA: "#3535cc",
-    colorB: "#abaadd",
+    colorA: "#0f2f40",
+    colorB: "#7ad5ff",
   });
 
   const planeInTl = useRef();
@@ -441,18 +442,18 @@ We have a wide range of beverages!`,
 
     tl.current.to(backgroundColors.current, {
       duration: 1,
-      colorA: "#6f35cc",
-      colorB: "#ffad30",
+      colorA: "#0c7bb3",
+      colorB: "#f2bae8",
     });
     tl.current.to(backgroundColors.current, {
       duration: 1,
-      colorA: "#424242",
-      colorB: "#ffcc00",
+      colorA: "#23494a",
+      colorB: "#bfffc7",
     });
     tl.current.to(backgroundColors.current, {
       duration: 1,
-      colorA: "#81318b",
-      colorB: "#55ab8f",
+      colorA: "#5d69be",
+      colorB: "#c89feb",
     });
 
     tl.current.pause();
@@ -514,18 +515,42 @@ We have a wide range of beverages!`,
           </group>
           <group ref={airplane}>
             <Float floatIntensity={1} speed={1.5} rotationIntensity={0.5}>
-              <Airplane
+              {/* <Airplane
                 rotation-y={Math.PI / 2}
                 scale={[0.2, 0.2, 0.2]}
                 position-y={0.1}
+              /> */}
+              <Son5Gong
+                rotation-y={Math.PI / 2}
+                scale={[0.06, 0.06, 0.06]}
+                position={[0, -0.8, 0]}
               />
             </Float>
           </group>
         </group>
         {/* TEXT */}
-        {textSections.map((textSection, index) => (
-          <TextSection {...textSection} key={index} />
-        ))}
+        {textSections.map((textSection, index) => {
+          console.log(
+            `Rendering TextSection ${index} | play: ${play} | visible: ${
+              index === 0 ? play : true
+            }`
+          );
+          if (index === 0 && !play) return null;
+          return (
+            <TextSection
+              {...textSection}
+              key={index}
+              index={index} // index 넘겨줘야함!
+              starCount={
+                index === 0 ? 1 : index === 1 ? 3 : index === 2 ? 5 : 7
+              }
+              onClick={() => {
+                console.log(` ${textSection.title || "Welcome"} clicked!`);
+                // 예시: 카메라 이동, 모달 오픈, 페이지 전환 등
+              }}
+            />
+          );
+        })}
 
         {/* LINE */}
         <group position-y={-2}>
@@ -556,6 +581,6 @@ We have a wide range of beverages!`,
         ))}
       </>
     ),
-    []
+    [play]
   );
 };
