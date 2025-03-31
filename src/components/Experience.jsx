@@ -57,7 +57,7 @@ export const Experience = () => {
         ),
         title: "My 1st project",
         subtitle: `Click here to open my first project.`,
-        link: "https://naver.com", // 여기에 각 프로젝트 링크 추가
+        link: "https://ai-chat-bot-mu-rosy.vercel.app/", // 여기에 각 프로젝트 링크 추가
       },
       {
         cameraRailDist: 1.5,
@@ -68,7 +68,7 @@ export const Experience = () => {
         ),
         title: "My 2nd project",
         subtitle: `Click here to open my second project.`,
-        link: "https://daum.net",
+        link: "https://translator-app-gules.vercel.app/",
       },
       {
         cameraRailDist: -1,
@@ -79,7 +79,7 @@ export const Experience = () => {
         ),
         title: "My 3rd project",
         subtitle: `Click here to open my third project.`,
-        link: "https://google.com",
+        link: "https://tic-tac-toe-ivory-kappa.vercel.app/",
       },
       {
         cameraRailDist: 1.5,
@@ -90,7 +90,7 @@ export const Experience = () => {
         ),
         title: "My 4th project",
         subtitle: `Click here to open my fourth project.`,
-        link: "https://youtube.com",
+        link: "https://news-app-henna-kappa.vercel.app/",
       },
     ];
   }, []);

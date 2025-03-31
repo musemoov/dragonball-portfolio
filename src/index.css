@@ -294,7 +294,7 @@ body {
 }
 
 .outro__button {
-  padding: 1rem 2rem;
+  padding: 1rem 3.5rem;
   font-size: 1.2rem;
   color: white;
   background: rgba(255, 255, 255, 0.276);
@@ -317,10 +317,12 @@ body {
 
 /* Hover 효과도 추가 */
 .outro__button:hover {
-  /* background: linear-gradient(45deg, #5d69be,#c89feb ); */
+  background: rgba(255, 255, 255, 0.098); /* 더 밝은 반투명 배경 */
+  backdrop-filter: blur(3px);          /* blur 정도 증가 */
   color: #000000;
+  border: 2px solid rgba(0, 0, 0, 0.8);
   transition: all 0.7s ease;
-  border: 2px solid rgb(0, 0, 0);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4); /* 빛나는 느낌 */
   
 }
 
