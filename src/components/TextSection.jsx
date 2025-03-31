@@ -9,6 +9,7 @@ export const TextSection = ({
   visible = true,
   starCount = 1,
   index = 0,
+  link = "", // 프로젝트 링크 받기
 }) => {
   const groupRef = useRef();
   const smallStarRefs = useRef([]);
@@ -91,7 +92,7 @@ export const TextSection = ({
       scale={index === 0 ? 0 : 5} // 첫 번째 간판만 등장 애니메이션 적용
       onClick={(e) => {
         e.stopPropagation();
-        window.open("https://www.naver.com", "_blank");
+        if (link) window.open(link, "_blank");
       }}
       visible={visible}
       onPointerOver={(e) => {

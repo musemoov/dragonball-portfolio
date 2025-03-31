@@ -57,6 +57,7 @@ export const Experience = () => {
         ),
         title: "My 1st project",
         subtitle: `Click here to open my first project.`,
+        link: "https://naver.com", // 여기에 각 프로젝트 링크 추가
       },
       {
         cameraRailDist: 1.5,
@@ -67,6 +68,7 @@ export const Experience = () => {
         ),
         title: "My 2nd project",
         subtitle: `Click here to open my second project.`,
+        link: "https://daum.net",
       },
       {
         cameraRailDist: -1,
@@ -77,6 +79,7 @@ export const Experience = () => {
         ),
         title: "My 3rd project",
         subtitle: `Click here to open my third project.`,
+        link: "https://google.com",
       },
       {
         cameraRailDist: 1.5,
@@ -87,6 +90,7 @@ export const Experience = () => {
         ),
         title: "My 4th project",
         subtitle: `Click here to open my fourth project.`,
+        link: "https://youtube.com",
       },
     ];
   }, []);
@@ -544,6 +548,7 @@ export const Experience = () => {
               starCount={
                 index === 0 ? 1 : index === 1 ? 3 : index === 2 ? 5 : 7
               }
+              link={textSection.link} // 각 프로젝트 링크 추가
               onClick={() => {
                 console.log(` ${textSection.title || "Welcome"} clicked!`);
                 // 예시: 카메라 이동, 모달 오픈, 페이지 전환 등
